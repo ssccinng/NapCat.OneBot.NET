@@ -20,7 +20,7 @@ namespace NapCat.OneBot.NET.Requests
         [JsonPropertyName("user_id")]
         public int UserId { get; set; }
         [JsonPropertyName("message")]
-        public IMessage[] Message { get; set; } = [];
+        public object[] Message { get; set; } = [];
         [JsonPropertyName("auto_escape")]
         public bool AutoEscape { get; set; }
     }
@@ -32,7 +32,7 @@ namespace NapCat.OneBot.NET.Requests
         public long GroupId { get; set; }
 
         [JsonPropertyName("message")]
-        public IMessage[] Message { get; set; } = [];
+        public object[] Message { get; set; } = [];
 
 
         [JsonPropertyName("auto_escape")]
@@ -53,7 +53,7 @@ namespace NapCat.OneBot.NET.Requests
         public long GroupId { get; set; }
 
         [JsonPropertyName("message")]
-        public IMessage[] Message { get; set; } = [];
+        public object[] Message { get; set; } = [];
 
 
         [JsonPropertyName("auto_escape")]

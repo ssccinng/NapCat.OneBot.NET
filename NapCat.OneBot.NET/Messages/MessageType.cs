@@ -18,30 +18,285 @@ namespace NapCat.OneBot.NET.Messages
     {
         [JsonPropertyName("type")]
         string Type { get; }
-        [JsonPropertyName("data")]
-        object Data { get; }
     }
-    public class AtMessage(string qq) : IMessage
+
+    #region Data Classes
+    public class AtMessageData
     {
-        [JsonPropertyName("text")]
+        public string qq { get; set; }
+        
+        public AtMessageData(string qq)
+        {
+            this.qq = qq;
+        }
+    }
+
+    public class PlainMessageData
+    {
+        public string text { get; set; }
+        
+        public PlainMessageData() { }
+        
+        public PlainMessageData(string text)
+        {
+            this.text = text;
+        }
+    }
+
+    public class FaceMessageData
+    {
+        public string id { get; set; }
+        
+        public FaceMessageData(string id)
+        {
+            this.id = id;
+        }
+    }
+
+    public class ImageMessageData
+    {
+        public string file { get; set; }
+        public string type { get; set; }
+        public string url { get; set; }
+        public int cache { get; set; }
+        public int proxy { get; set; }
+        public int timeout { get; set; }
+        
+        public ImageMessageData(string file, string type = null, string url = null, int cache = 1, int proxy = 1, int timeout = 0)
+        {
+            this.file = file;
+            this.type = type;
+            this.url = url;
+            this.cache = cache;
+            this.proxy = proxy;
+            this.timeout = timeout;
+        }
+    }
+
+    public class RecordMessageData
+    {
+        public string file { get; set; }
+        public int magic { get; set; }
+        public string url { get; set; }
+        public int cache { get; set; }
+        public int proxy { get; set; }
+        public int timeout { get; set; }
+        
+        public RecordMessageData(string file, int magic = 0, string url = null, int cache = 1, int proxy = 1, int timeout = 0)
+        {
+            this.file = file;
+            this.magic = magic;
+            this.url = url;
+            this.cache = cache;
+            this.proxy = proxy;
+            this.timeout = timeout;
+        }
+    }
+
+    public class VideoMessageData
+    {
+        public string file { get; set; }
+        public string url { get; set; }
+        public int cache { get; set; }
+        public int proxy { get; set; }
+        public int timeout { get; set; }
+        
+        public VideoMessageData(string file, string url = null, int cache = 1, int proxy = 1, int timeout = 0)
+        {
+            this.file = file;
+            this.url = url;
+            this.cache = cache;
+            this.proxy = proxy;
+            this.timeout = timeout;
+        }
+    }
+
+    public class EmptyData
+    {
+    }
+
+    public class PokeMessageData
+    {
+        public string type { get; set; }
+        public string id { get; set; }
+        
+        public PokeMessageData(string type, string id)
+        {
+            this.type = type;
+            this.id = id;
+        }
+    }
+
+    public class ShareMessageData
+    {
+        public string url { get; set; }
+        public string title { get; set; }
+        public string content { get; set; }
+        public string image { get; set; }
+        
+        public ShareMessageData(string url, string title, string content = null, string image = null)
+        {
+            this.url = url;
+            this.title = title;
+            this.content = content;
+            this.image = image;
+        }
+    }
+
+    public class ContactMessageData
+    {
+        public string type { get; set; }
+        public string id { get; set; }
+        
+        public ContactMessageData(string type, string id)
+        {
+            this.type = type;
+            this.id = id;
+        }
+    }
+
+    public class LocationMessageData
+    {
+        public string lat { get; set; }
+        public string lon { get; set; }
+        public string title { get; set; }
+        public string content { get; set; }
+        
+        public LocationMessageData(string lat, string lon, string title = null, string content = null)
+        {
+            this.lat = lat;
+            this.lon = lon;
+            this.title = title;
+            this.content = content;
+        }
+    }
+
+    public class MusicMessageData
+    {
+        public string type { get; set; }
+        public string id { get; set; }
+        
+        public MusicMessageData(string type, string id)
+        {
+            this.type = type;
+            this.id = id;
+        }
+    }
+
+    public class CustomMusicMessageData
+    {
+        public string type { get; set; } = "custom";
+        public string url { get; set; }
+        public string audio { get; set; }
+        public string title { get; set; }
+        public string content { get; set; }
+        public string image { get; set; }
+        
+        public CustomMusicMessageData(string url, string audio, string title, string content = null, string image = null)
+        {
+            this.url = url;
+            this.audio = audio;
+            this.title = title;
+            this.content = content;
+            this.image = image;
+        }
+    }
+
+    public class ReplyMessageData
+    {
+        public string id { get; set; }
+        
+        public ReplyMessageData(string id)
+        {
+            this.id = id;
+        }
+    }
+
+    public class ForwardMessageData
+    {
+        public string id { get; set; }
+        
+        public ForwardMessageData(string id)
+        {
+            this.id = id;
+        }
+    }
+
+    public class NodeMessageData
+    {
+        public string id { get; set; }
+        
+        public NodeMessageData(string id)
+        {
+            this.id = id;
+        }
+    }
+
+    public class CustomNodeMessageData
+    {
+        [JsonPropertyName("user_id")]
+        public string userId { get; set; }
+        public string nickname { get; set; }
+        public object content { get; set; }
+        
+        public CustomNodeMessageData(string userId, string nickname, object content)
+        {
+            this.userId = userId;
+            this.nickname = nickname;
+            this.content = content;
+        }
+    }
+
+    public class XmlMessageData
+    {
+        public string data { get; set; }
+        
+        public XmlMessageData(string data)
+        {
+            this.data = data;
+        }
+    }
+
+    public class JsonMessageData
+    {
+        public string data { get; set; }
+        
+        public JsonMessageData(string data)
+        {
+            this.data = data;
+        }
+    }
+    #endregion
+
+    public class AtMessage : IMessage
+    {
+        [JsonPropertyName("type")]
         public string Type { get; } = "at";
         [JsonPropertyName("data")]
-        public object Data { get; } = new { qq };
+        public AtMessageData Data { get; }
+        
+        public AtMessage(string qq)
+        {
+            Data = new AtMessageData(qq);
+        }
     }
+    
     public class PlainMessage : IMessage
     {
         [JsonPropertyName("type")]
         public string Type { get; } = "text";
 
         [JsonPropertyName("data")]
-        public object Data { get; }
+        public PlainMessageData Data { get; }
+        
         public PlainMessage()
         {
-            
+            Data = new PlainMessageData();
         }
+        
         public PlainMessage(string text)
         {
-            Data = new { text };
+            Data = new PlainMessageData(text);
         }
     }
 
@@ -51,11 +306,11 @@ namespace NapCat.OneBot.NET.Messages
         public string Type { get; } = "face";
 
         [JsonPropertyName("data")]
-        public object Data { get; }
+        public FaceMessageData Data { get; }
 
         public FaceMessage(string id)
         {
-            Data = new { id };
+            Data = new FaceMessageData(id);
         }
     }
 
@@ -65,11 +320,11 @@ namespace NapCat.OneBot.NET.Messages
         public string Type { get; } = "image";
 
         [JsonPropertyName("data")]
-        public object Data { get; }
+        public ImageMessageData Data { get; }
 
         public ImageMessage(string file, string type = null, string url = null, int cache = 1, int proxy = 1, int timeout = 0)
         {
-            Data = new { file, type, url, cache, proxy, timeout };
+            Data = new ImageMessageData(file, type, url, cache, proxy, timeout);
         }
     }
 
@@ -79,11 +334,11 @@ namespace NapCat.OneBot.NET.Messages
         public string Type { get; } = "record";
 
         [JsonPropertyName("data")]
-        public object Data { get; }
+        public RecordMessageData Data { get; }
 
         public RecordMessage(string file, int magic = 0, string url = null, int cache = 1, int proxy = 1, int timeout = 0)
         {
-            Data = new { file, magic, url, cache, proxy, timeout };
+            Data = new RecordMessageData(file, magic, url, cache, proxy, timeout);
         }
     }
 
@@ -93,11 +348,11 @@ namespace NapCat.OneBot.NET.Messages
         public string Type { get; } = "video";
 
         [JsonPropertyName("data")]
-        public object Data { get; }
+        public VideoMessageData Data { get; }
 
         public VideoMessage(string file, string url = null, int cache = 1, int proxy = 1, int timeout = 0)
         {
-            Data = new { file, url, cache, proxy, timeout };
+            Data = new VideoMessageData(file, url, cache, proxy, timeout);
         }
     }
 
@@ -107,7 +362,7 @@ namespace NapCat.OneBot.NET.Messages
         public string Type { get; } = "rps";
 
         [JsonPropertyName("data")]
-        public object Data { get; } = new { };
+        public EmptyData Data { get; } = new EmptyData();
     }
 
     public class DiceMessage : IMessage
@@ -116,7 +371,7 @@ namespace NapCat.OneBot.NET.Messages
         public string Type { get; } = "dice";
 
         [JsonPropertyName("data")]
-        public object Data { get; } = new { };
+        public EmptyData Data { get; } = new EmptyData();
     }
 
     public class ShakeMessage : IMessage
@@ -125,7 +380,7 @@ namespace NapCat.OneBot.NET.Messages
         public string Type { get; } = "shake";
 
         [JsonPropertyName("data")]
-        public object Data { get; } = new { };
+        public EmptyData Data { get; } = new EmptyData();
     }
 
     public class PokeMessage : IMessage
@@ -134,11 +389,11 @@ namespace NapCat.OneBot.NET.Messages
         public string Type { get; } = "poke";
 
         [JsonPropertyName("data")]
-        public object Data { get; }
+        public PokeMessageData Data { get; }
 
         public PokeMessage(string type, string id)
         {
-            Data = new { type, id };
+            Data = new PokeMessageData(type, id);
         }
     }
 
@@ -148,7 +403,7 @@ namespace NapCat.OneBot.NET.Messages
         public string Type { get; } = "anonymous";
 
         [JsonPropertyName("data")]
-        public object Data { get; } = new { };
+        public EmptyData Data { get; } = new EmptyData();
     }
 
     public class ShareMessage : IMessage
@@ -157,11 +412,11 @@ namespace NapCat.OneBot.NET.Messages
         public string Type { get; } = "share";
 
         [JsonPropertyName("data")]
-        public object Data { get; }
+        public ShareMessageData Data { get; }
 
         public ShareMessage(string url, string title, string content = null, string image = null)
         {
-            Data = new { url, title, content, image };
+            Data = new ShareMessageData(url, title, content, image);
         }
     }
 
@@ -171,11 +426,11 @@ namespace NapCat.OneBot.NET.Messages
         public string Type { get; } = "contact";
 
         [JsonPropertyName("data")]
-        public object Data { get; }
+        public ContactMessageData Data { get; }
 
         public ContactMessage(string type, string id)
         {
-            Data = new { type, id };
+            Data = new ContactMessageData(type, id);
         }
     }
 
@@ -185,11 +440,11 @@ namespace NapCat.OneBot.NET.Messages
         public string Type { get; } = "location";
 
         [JsonPropertyName("data")]
-        public object Data { get; }
+        public LocationMessageData Data { get; }
 
         public LocationMessage(string lat, string lon, string title = null, string content = null)
         {
-            Data = new { lat, lon, title, content };
+            Data = new LocationMessageData(lat, lon, title, content);
         }
     }
 
@@ -199,11 +454,11 @@ namespace NapCat.OneBot.NET.Messages
         public string Type { get; } = "music";
 
         [JsonPropertyName("data")]
-        public object Data { get; }
+        public MusicMessageData Data { get; }
 
         public MusicMessage(string type, string id)
         {
-            Data = new { type, id };
+            Data = new MusicMessageData(type, id);
         }
     }
 
@@ -213,11 +468,11 @@ namespace NapCat.OneBot.NET.Messages
         public string Type { get; } = "music";
 
         [JsonPropertyName("data")]
-        public object Data { get; }
+        public CustomMusicMessageData Data { get; }
 
         public CustomMusicMessage(string url, string audio, string title, string content = null, string image = null)
         {
-            Data = new { type = "custom", url, audio, title, content, image };
+            Data = new CustomMusicMessageData(url, audio, title, content, image);
         }
     }
 
@@ -227,11 +482,11 @@ namespace NapCat.OneBot.NET.Messages
         public string Type { get; } = "reply";
 
         [JsonPropertyName("data")]
-        public object Data { get; }
+        public ReplyMessageData Data { get; }
 
         public ReplyMessage(string id)
         {
-            Data = new { id };
+            Data = new ReplyMessageData(id);
         }
     }
 
@@ -241,11 +496,11 @@ namespace NapCat.OneBot.NET.Messages
         public string Type { get; } = "forward";
 
         [JsonPropertyName("data")]
-        public object Data { get; }
+        public ForwardMessageData Data { get; }
 
         public ForwardMessage(string id)
         {
-            Data = new { id };
+            Data = new ForwardMessageData(id);
         }
     }
 
@@ -255,11 +510,11 @@ namespace NapCat.OneBot.NET.Messages
         public string Type { get; } = "node";
 
         [JsonPropertyName("data")]
-        public object Data { get; }
+        public NodeMessageData Data { get; }
 
         public NodeMessage(string id)
         {
-            Data = new { id };
+            Data = new NodeMessageData(id);
         }
     }
 
@@ -269,11 +524,11 @@ namespace NapCat.OneBot.NET.Messages
         public string Type { get; } = "node";
 
         [JsonPropertyName("data")]
-        public object Data { get; }
+        public CustomNodeMessageData Data { get; }
 
         public CustomNodeMessage(string userId, string nickname, object content)
         {
-            Data = new { user_id = userId, nickname, content };
+            Data = new CustomNodeMessageData(userId, nickname, content);
         }
     }
 
@@ -283,11 +538,11 @@ namespace NapCat.OneBot.NET.Messages
         public string Type { get; } = "xml";
 
         [JsonPropertyName("data")]
-        public object Data { get; }
+        public XmlMessageData Data { get; }
 
         public XmlMessage(string data)
         {
-            Data = new { data };
+            Data = new XmlMessageData(data);
         }
     }
 
@@ -297,11 +552,11 @@ namespace NapCat.OneBot.NET.Messages
         public string Type { get; } = "json";
 
         [JsonPropertyName("data")]
-        public object Data { get; }
+        public JsonMessageData Data { get; }
 
         public JsonMessage(string data)
         {
-            Data = new { data };
+            Data = new JsonMessageData(data);
         }
     }
 }
