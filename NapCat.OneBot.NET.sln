@@ -1,0 +1,30 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.35806.103
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NapCat.OneBot.NET", "NapCat.OneBot.NET\NapCat.OneBot.NET.csproj", "{FABB5B20-A29D-40A3-9A2A-18FF197C9F4F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneBot.Test", "OneBot.Test\OneBot.Test.csproj", "{90663550-958D-4A00-907C-B81C28242A62}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FABB5B20-A29D-40A3-9A2A-18FF197C9F4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FABB5B20-A29D-40A3-9A2A-18FF197C9F4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FABB5B20-A29D-40A3-9A2A-18FF197C9F4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FABB5B20-A29D-40A3-9A2A-18FF197C9F4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90663550-958D-4A00-907C-B81C28242A62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90663550-958D-4A00-907C-B81C28242A62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90663550-958D-4A00-907C-B81C28242A62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90663550-958D-4A00-907C-B81C28242A62}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A5E82019-A66E-4F89-8BA7-4CD33B2F00FC}
+	EndGlobalSection
+EndGlobal
