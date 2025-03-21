@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Caching.Memory;
-using NapCat.OneBot.NET.Messages;
+﻿using NapCat.OneBot.NET.Messages;
 using System.Data;
 using System.Net.WebSockets;
 using System.Text;
@@ -24,7 +23,7 @@ namespace NapCat.OneBot.NET
         public event Action<MasudaOneBot, MessageEvent> OnFriendMessage;
         #endregion
 
-        MemoryCache memoryCache = new (new MemoryCacheOptions() { });
+        //MemoryCache memoryCache = new (new MemoryCacheOptions() { });
 
 
         public async Task LaunchAsync()
