@@ -187,6 +187,7 @@ namespace NapCat.OneBot.NET
         {
             var data = new te { action = request.Action, echo = "123", @params = request };
             var json = JsonSerializer.Serialize(data);
+            Console.WriteLine("send -> {0}", json);
             await Send(_client, json);
         }
 

@@ -20,6 +20,13 @@ namespace NapCat.OneBot.NET.Messages
         string Type { get; }
     }
 
+    public class SimpleMessage: IMessage
+    {
+        [JsonPropertyName("type")]
+        public string Type { get; set; } = "message";
+    }
+
+
     #region Data Classes
     public class AtMessageData
     {
@@ -64,7 +71,11 @@ namespace NapCat.OneBot.NET.Messages
         
         public ImageMessageData(string file, string type = null, string url = null, int cache = 1, int proxy = 1, int timeout = 0)
         {
-            this.file = file;
+            if (File.Exists(file))
+            this.file = "file:///" + file;
+            else
+                this.file =  file;
+
             this.type = type;
             this.url = url;
             this.cache = cache;
@@ -271,9 +282,9 @@ namespace NapCat.OneBot.NET.Messages
     public class AtMessage : IMessage
     {
         [JsonPropertyName("type")]
-        public string Type { get; } = "at";
+        public string Type { get; set; } = "at";
         [JsonPropertyName("data")]
-        public AtMessageData Data { get; }
+        public AtMessageData Data { get; set; }
         
         public AtMessage(string qq)
         {
@@ -284,16 +295,16 @@ namespace NapCat.OneBot.NET.Messages
     public class PlainMessage : IMessage
     {
         [JsonPropertyName("type")]
-        public string Type { get; } = "text";
+        public string Type { get; set; } = "text";
 
         [JsonPropertyName("data")]
-        public PlainMessageData Data { get; }
+        public PlainMessageData Data { get; set; }
         
         public PlainMessage()
         {
             Data = new PlainMessageData();
         }
-        
+
         public PlainMessage(string text)
         {
             Data = new PlainMessageData(text);
@@ -303,11 +314,14 @@ namespace NapCat.OneBot.NET.Messages
     public class FaceMessage : IMessage
     {
         [JsonPropertyName("type")]
-        public string Type { get; } = "face";
+        public string Type { get; set; } = "face";
 
         [JsonPropertyName("data")]
-        public FaceMessageData Data { get; }
-
+        public FaceMessageData Data { get; set; }
+        public FaceMessage()
+        {
+            
+        }
         public FaceMessage(string id)
         {
             Data = new FaceMessageData(id);
@@ -317,11 +331,14 @@ namespace NapCat.OneBot.NET.Messages
     public class ImageMessage : IMessage
     {
         [JsonPropertyName("type")]
-        public string Type { get; } = "image";
+        public string Type { get; set; } = "image";
 
         [JsonPropertyName("data")]
-        public ImageMessageData Data { get; }
-
+        public ImageMessageData Data { get; set; }
+        public ImageMessage()
+        {
+            
+        }
         public ImageMessage(string file, string type = null, string url = null, int cache = 1, int proxy = 1, int timeout = 0)
         {
             Data = new ImageMessageData(file, type, url, cache, proxy, timeout);
@@ -331,11 +348,14 @@ namespace NapCat.OneBot.NET.Messages
     public class RecordMessage : IMessage
     {
         [JsonPropertyName("type")]
-        public string Type { get; } = "record";
+        public string Type { get; set; } = "record";
 
         [JsonPropertyName("data")]
-        public RecordMessageData Data { get; }
-
+        public RecordMessageData Data { get; set; }
+        public RecordMessage()
+        {
+            
+        }
         public RecordMessage(string file, int magic = 0, string url = null, int cache = 1, int proxy = 1, int timeout = 0)
         {
             Data = new RecordMessageData(file, magic, url, cache, proxy, timeout);
@@ -345,11 +365,14 @@ namespace NapCat.OneBot.NET.Messages
     public class VideoMessage : IMessage
     {
         [JsonPropertyName("type")]
-        public string Type { get; } = "video";
+        public string Type { get; set; } = "video";
 
         [JsonPropertyName("data")]
-        public VideoMessageData Data { get; }
-
+        public VideoMessageData Data { get; set; }
+        public VideoMessage()
+        {
+            
+        }
         public VideoMessage(string file, string url = null, int cache = 1, int proxy = 1, int timeout = 0)
         {
             Data = new VideoMessageData(file, url, cache, proxy, timeout);
@@ -359,60 +382,84 @@ namespace NapCat.OneBot.NET.Messages
     public class RpsMessage : IMessage
     {
         [JsonPropertyName("type")]
-        public string Type { get; } = "rps";
+        public string Type { get; set; } = "rps";
 
         [JsonPropertyName("data")]
-        public EmptyData Data { get; } = new EmptyData();
+        public EmptyData Data { get; set; } = new EmptyData();
+        public RpsMessage()
+        {
+            
+        }
     }
 
     public class DiceMessage : IMessage
     {
         [JsonPropertyName("type")]
-        public string Type { get; } = "dice";
+        public string Type { get; set; } = "dice";
 
         [JsonPropertyName("data")]
-        public EmptyData Data { get; } = new EmptyData();
+        public EmptyData Data { get; set; } = new EmptyData();
+        public DiceMessage()
+        {
+            
+        }
     }
 
     public class ShakeMessage : IMessage
     {
         [JsonPropertyName("type")]
-        public string Type { get; } = "shake";
+        public string Type { get; set; } = "shake";
 
         [JsonPropertyName("data")]
-        public EmptyData Data { get; } = new EmptyData();
+        public EmptyData Data { get; set; } = new EmptyData();
+        public ShakeMessage()
+        {
+            
+        }
     }
 
     public class PokeMessage : IMessage
     {
         [JsonPropertyName("type")]
-        public string Type { get; } = "poke";
+        public string Type { get; set; } = "poke";
 
         [JsonPropertyName("data")]
-        public PokeMessageData Data { get; }
+        public PokeMessageData Data { get; set; }
 
         public PokeMessage(string type, string id)
         {
             Data = new PokeMessageData(type, id);
+        }
+        public PokeMessage()
+        {
+            
         }
     }
 
     public class AnonymousMessage : IMessage
     {
         [JsonPropertyName("type")]
-        public string Type { get; } = "anonymous";
+        public string Type { get; set; } = "anonymous";
 
         [JsonPropertyName("data")]
-        public EmptyData Data { get; } = new EmptyData();
+        public EmptyData Data { get; set; } = new EmptyData();
+        public AnonymousMessage()
+        {
+            
+        }
     }
 
     public class ShareMessage : IMessage
     {
         [JsonPropertyName("type")]
-        public string Type { get; } = "share";
+        public string Type { get; set; } = "share";
 
         [JsonPropertyName("data")]
-        public ShareMessageData Data { get; }
+        public ShareMessageData Data { get; set; }
+        public ShareMessage()
+        {
+            
+        }
 
         public ShareMessage(string url, string title, string content = null, string image = null)
         {
@@ -422,11 +469,15 @@ namespace NapCat.OneBot.NET.Messages
 
     public class ContactMessage : IMessage
     {
+        public ContactMessage()
+        {
+            
+        }
         [JsonPropertyName("type")]
-        public string Type { get; } = "contact";
+        public string Type { get; set; } = "contact";
 
         [JsonPropertyName("data")]
-        public ContactMessageData Data { get; }
+        public ContactMessageData Data { get; set; }
 
         public ContactMessage(string type, string id)
         {
@@ -436,11 +487,15 @@ namespace NapCat.OneBot.NET.Messages
 
     public class LocationMessage : IMessage
     {
+        public LocationMessage()
+        {
+            
+        }
         [JsonPropertyName("type")]
-        public string Type { get; } = "location";
+        public string Type { get; set; } = "location";
 
         [JsonPropertyName("data")]
-        public LocationMessageData Data { get; }
+        public LocationMessageData Data { get; set; }
 
         public LocationMessage(string lat, string lon, string title = null, string content = null)
         {
@@ -450,11 +505,15 @@ namespace NapCat.OneBot.NET.Messages
 
     public class MusicMessage : IMessage
     {
+        public MusicMessage()
+        {
+            
+        }
         [JsonPropertyName("type")]
-        public string Type { get; } = "music";
+        public string Type { get; set; } = "music";
 
         [JsonPropertyName("data")]
-        public MusicMessageData Data { get; }
+        public MusicMessageData Data { get; set; }
 
         public MusicMessage(string type, string id)
         {
@@ -464,11 +523,15 @@ namespace NapCat.OneBot.NET.Messages
 
     public class CustomMusicMessage : IMessage
     {
+        public CustomMusicMessage()
+        {
+            
+        }
         [JsonPropertyName("type")]
-        public string Type { get; } = "music";
+        public string Type { get; set; } = "music";
 
         [JsonPropertyName("data")]
-        public CustomMusicMessageData Data { get; }
+        public CustomMusicMessageData Data { get; set; }
 
         public CustomMusicMessage(string url, string audio, string title, string content = null, string image = null)
         {
@@ -478,12 +541,16 @@ namespace NapCat.OneBot.NET.Messages
 
     public class ReplyMessage : IMessage
     {
+       
         [JsonPropertyName("type")]
-        public string Type { get; } = "reply";
+        public string Type { get; set; } = "reply";
 
         [JsonPropertyName("data")]
-        public ReplyMessageData Data { get; }
-
+        public ReplyMessageData Data { get; set; }
+        public ReplyMessage()
+        {
+            
+        }
         public ReplyMessage(string id)
         {
             Data = new ReplyMessageData(id);
@@ -493,11 +560,14 @@ namespace NapCat.OneBot.NET.Messages
     public class ForwardMessage : IMessage
     {
         [JsonPropertyName("type")]
-        public string Type { get; } = "forward";
+        public string Type { get; set; } = "forward";
 
         [JsonPropertyName("data")]
-        public ForwardMessageData Data { get; }
-
+        public ForwardMessageData Data { get; set; }
+        public ForwardMessage()
+        {
+            
+        }
         public ForwardMessage(string id)
         {
             Data = new ForwardMessageData(id);
@@ -507,11 +577,14 @@ namespace NapCat.OneBot.NET.Messages
     public class NodeMessage : IMessage
     {
         [JsonPropertyName("type")]
-        public string Type { get; } = "node";
+        public string Type { get; set; } = "node";
 
         [JsonPropertyName("data")]
-        public NodeMessageData Data { get; }
-
+        public NodeMessageData Data { get; set; }
+        public NodeMessage()
+        {
+            
+        }
         public NodeMessage(string id)
         {
             Data = new NodeMessageData(id);
@@ -521,11 +594,14 @@ namespace NapCat.OneBot.NET.Messages
     public class CustomNodeMessage : IMessage
     {
         [JsonPropertyName("type")]
-        public string Type { get; } = "node";
+        public string Type { get; set; } = "node";
 
         [JsonPropertyName("data")]
-        public CustomNodeMessageData Data { get; }
-
+        public CustomNodeMessageData Data { get; set; }
+        public CustomNodeMessage()
+        {
+            
+        }
         public CustomNodeMessage(string userId, string nickname, object content)
         {
             Data = new CustomNodeMessageData(userId, nickname, content);
@@ -535,11 +611,14 @@ namespace NapCat.OneBot.NET.Messages
     public class XmlMessage : IMessage
     {
         [JsonPropertyName("type")]
-        public string Type { get; } = "xml";
+        public string Type { get; set; } = "xml";
 
         [JsonPropertyName("data")]
-        public XmlMessageData Data { get; }
-
+        public XmlMessageData Data { get; set; }
+        public XmlMessage()
+        {
+            
+        }
         public XmlMessage(string data)
         {
             Data = new XmlMessageData(data);
@@ -549,11 +628,14 @@ namespace NapCat.OneBot.NET.Messages
     public class JsonMessage : IMessage
     {
         [JsonPropertyName("type")]
-        public string Type { get; } = "json";
+        public string Type { get; set; } = "json";
 
         [JsonPropertyName("data")]
-        public JsonMessageData Data { get; }
-
+        public JsonMessageData Data { get; set; }
+        public JsonMessage()
+        {
+            
+        }
         public JsonMessage(string data)
         {
             Data = new JsonMessageData(data);

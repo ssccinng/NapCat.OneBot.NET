@@ -36,7 +36,7 @@ async void MasudaOneBot_OnMessage(MasudaOneBot bot, NapCat.OneBot.NET.Event.Mess
         {
             case PlainMessage plainMessage:
                 Console.WriteLine(plainMessage.Data);
-                await bot.SendMessageAsync(msgs, "dani");
+                await bot.ReplyMessageAsync(msgs, "dani");
                 break;
             default:
                 break;

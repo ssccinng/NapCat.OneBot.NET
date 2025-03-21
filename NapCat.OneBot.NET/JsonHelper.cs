@@ -34,9 +34,10 @@ namespace NapCat.OneBot.NET
                     return JsonSerializer.Deserialize<PlainMessage>(jsonObject.GetRawText());
                 case "image":
                     return JsonSerializer.Deserialize<ImageMessage>(jsonObject.GetRawText());
-
+                case "reply":
+                    return JsonSerializer.Deserialize<ReplyMessage>(jsonObject.GetRawText());
                 default:
-                    return JsonSerializer.Deserialize<IMessage>(jsonObject.GetRawText());
+                    return new SimpleMessage();
             }
             throw new NotImplementedException();
         }
