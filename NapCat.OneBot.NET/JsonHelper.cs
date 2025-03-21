@@ -36,10 +36,54 @@ namespace NapCat.OneBot.NET
                     return JsonSerializer.Deserialize<ImageMessage>(jsonObject.GetRawText());
                 case "reply":
                     return JsonSerializer.Deserialize<ReplyMessage>(jsonObject.GetRawText());
+                case "at":
+                    return JsonSerializer.Deserialize<AtMessage>(jsonObject.GetRawText());
+                case "face":
+                    return JsonSerializer.Deserialize<FaceMessage>(jsonObject.GetRawText());
+                case "record":
+                    return JsonSerializer.Deserialize<RecordMessage>(jsonObject.GetRawText());
+                case "video":
+                    return JsonSerializer.Deserialize<VideoMessage>(jsonObject.GetRawText());
+                case "rps":
+                    return JsonSerializer.Deserialize<RpsMessage>(jsonObject.GetRawText());
+                case "dice":
+                    return JsonSerializer.Deserialize<DiceMessage>(jsonObject.GetRawText());
+                case "shake":
+                    return JsonSerializer.Deserialize<ShakeMessage>(jsonObject.GetRawText());
+                case "poke":
+                    return JsonSerializer.Deserialize<PokeMessage>(jsonObject.GetRawText());
+                case "anonymous":
+                    return JsonSerializer.Deserialize<AnonymousMessage>(jsonObject.GetRawText());
+                case "share":
+                    return JsonSerializer.Deserialize<ShareMessage>(jsonObject.GetRawText());
+                case "contact":
+                    return JsonSerializer.Deserialize<ContactMessage>(jsonObject.GetRawText());
+                case "location":
+                    return JsonSerializer.Deserialize<LocationMessage>(jsonObject.GetRawText());
+                case "music":
+                    // Check if it's a custom music message
+                    if (jsonObject.GetProperty("data").TryGetProperty("type", out var musicType) && 
+                        musicType.GetString() == "custom")
+                    {
+                        return JsonSerializer.Deserialize<CustomMusicMessage>(jsonObject.GetRawText());
+                    }
+                    return JsonSerializer.Deserialize<MusicMessage>(jsonObject.GetRawText());
+                case "forward":
+                    return JsonSerializer.Deserialize<ForwardMessage>(jsonObject.GetRawText());
+                case "node":
+                    // Check if it has user_id property to determine if it's a custom node
+                    if (jsonObject.GetProperty("data").TryGetProperty("user_id", out _))
+                    {
+                        return JsonSerializer.Deserialize<CustomNodeMessage>(jsonObject.GetRawText());
+                    }
+                    return JsonSerializer.Deserialize<NodeMessage>(jsonObject.GetRawText());
+                case "xml":
+                    return JsonSerializer.Deserialize<XmlMessage>(jsonObject.GetRawText());
+                case "json":
+                    return JsonSerializer.Deserialize<JsonMessage>(jsonObject.GetRawText());
                 default:
                     return new SimpleMessage();
             }
-            throw new NotImplementedException();
         }
 
         public override void Write(Utf8JsonWriter writer, IMessage value, JsonSerializerOptions options)

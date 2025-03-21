@@ -122,6 +122,12 @@ namespace NapCat.OneBot.NET
 
 
         #region MessageMethod
+
+        public async Task SendFriendMessageAsync(string target, params IMessage[] message)
+        {
+            await SendMessageCoreAsync(long.Parse(target), SendMessageType.Friend, message);
+        }
+
         public async Task SendFriendMessageAsync(long target, params IMessage[] message)
         {
             await SendMessageCoreAsync(target, SendMessageType.Friend, message);
@@ -131,6 +137,11 @@ namespace NapCat.OneBot.NET
         {
             await SendGroupMessageAsync(group, new PlainMessage (message));
         }
+        public async Task SendGroupMessageAsync(string group, string message)
+        {
+            await SendGroupMessageAsync(long.Parse(group), new PlainMessage (message));
+        }
+
         public async Task ReplyMessageAsync(MessageEvent masudaMessage, string message)
         {
             await ReplyMessageAsync(masudaMessage, new PlainMessage (message ));
